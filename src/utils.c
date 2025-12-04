@@ -7,6 +7,9 @@ int get_rand_int(unsigned int *seed)
 
 void print_numbers(Threads *t)
 {
+#ifdef TEST
+	return;
+#endif
 	qsort(t->posList->array, t->posList->index, sizeof(int), compare_ints);
 	qsort(t->negList->array, t->negList->index, sizeof(int), compare_ints);
 	printf("-----NEGATIVE-----\n");

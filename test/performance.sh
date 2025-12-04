@@ -20,7 +20,7 @@ echo "======================================"
 echo "             SPEED TEST               "
 echo "======================================"
 
-make re
+make test
 
 echo "One thread"
 tester 1 40000000
@@ -35,6 +35,7 @@ tester 60 666666
 echo "Too many threads"
 tester 2000 20000
 
+rm -f .tmpTest
 
 echo "======================================"
 echo "                END                   "

@@ -19,6 +19,9 @@ $(NAME): $(OBJ)
 	$(CC) $(CCFLAGS) -c $< -o $@
 	@echo "$(COLOR_GREEN)------------ MESSAGE: $@ COMPILED ------------$(COLOR_RESET)"
 
+test: fclean
+	@make all CCFLAGS="$(CCFLAGS) -g -DTEST" --no-print-directory
+
 clean:
 	@rm -f $(OBJ)
 	@echo "$(COLOR_GREEN)------------ MESSAGE: CLEANING COMPLETED ------------$(COLOR_RESET)"
