@@ -3,8 +3,8 @@
 int check_argument(char *argStr)
 {
 	char *endptr;
-	long argNmb = strtol(argStr, endptr, 10);
-	if (endptr != '\0' || argStr == endptr)
+	long argNmb = strtol(argStr, &endptr, 10);
+	if (*endptr != '\0' || argStr == endptr)
 	{
 		fprintf(stderr, ARG_INVALID);
 		exit(EXIT_FAILURE);
@@ -19,6 +19,7 @@ int check_argument(char *argStr)
 		fprintf(stderr, ARG_MAX_INT);
 		exit(EXIT_FAILURE);
 	}
+	return (argNmb);
 }
 
 Threads *init_struct(int threadNmb, int nmbsPerThread)

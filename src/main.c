@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 		if (pthread_create(&t->ind[i].thread, NULL, &routine, &(t->ind[i])))
 			error_exit(CNOT_THREAD_CREATE, t);
 	for (int i = 0; i < t->threadNmb; i++)
-		if (pthread_join(&t->ind[i].thread, NULL))
+		if (pthread_join(t->ind[i].thread, NULL))
 			error_exit(CNOT_THREAD_JOIN, t);
 
 	if (!sigFlag)
@@ -43,14 +43,14 @@ void *routine(void *arg)
 		{
 			pthread_mutex_lock(&(t->posList->mutex));
 			t->posList->array[t->posList->index] = nmb;
-			t->posList->index;
+			t->posList->index++;
 			pthread_mutex_unlock(&(t->posList->mutex));
 		}
 		else
 		{
 			pthread_mutex_lock(&(t->negList->mutex));
 			t->negList->array[t->negList->index] = nmb;
-			t->negList->index;
+			t->negList->index++;
 			pthread_mutex_unlock(&(t->negList->mutex));
 		}
 	}
