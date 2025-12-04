@@ -11,14 +11,19 @@
 
 extern volatile sig_atomic_t sigFlag;
 
+// init
 int		check_argument(char *argStr);
-void	set_signals(void);
-void	sig_handler(void);
 Threads	*init_struct(int threadNmb, int nmbsPerThread);
-void	error_exit(char *str, Threads *t);
-void	init_nmb_struct(nmbList **n, Threads *t);
 void	init_individual_threads(Threads *t);
-void	init_mutexs(Threads *t);
+void	init_nmb_struct(nmbList **n, Threads *t);
+
+// signals
+void	set_signals(void);
+void	sig_handler();
+
+// exit
+void error_exit(char *str, Threads *t);
+void free_everything(Threads *t);
 
 typedef struct s_individualThreads indThread;
 typedef struct
