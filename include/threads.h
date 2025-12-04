@@ -1,6 +1,7 @@
 #ifndef THREADS_H
 #define THREADS_H
 
+#define DEFAULT_BUFFER_SIZE 1000
 #include "messages.h"
 #include <stdio.h>
 #include <unistd.h>

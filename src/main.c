@@ -31,28 +31,48 @@ int main(int argc, char **argv)
 
 void *routine(void *arg)
 {
-	indThread *ind		= (indThread *)arg;
-	Threads *t			= ind->main;
-	unsigned int seed	= t->randSeed + ind->index;
-	int	nmb;
+	indThread *ind = (indThread *)arg;
+	Threads *t = ind->main;
+	unsigned int seed = t->randSeed + ind->index;
+	int maxbufferSize = DEFAULT_BUFFER_SIZE > t->nmbsPerThread ? t->nmbsPerThread : DEFAULT_BUFFER_SIZE;
+	int remaining = t->nmbsPerThread;
+	int bufferPos[maxbufferSize];
+	int bufferPosIndex = 0;
+	int bufferNeg[maxbufferSize];
+	int bufferNegIndex = 0;
+	int nmb;
+	int initialPosListIndex;
+	int initialNegListIndex;
 
-	for (int i = 0; i < t->nmbsPerThread && !sigFlag; i++)
+	while (remaining > 0 && !sigFlag)
 	{
-		nmb = get_rand_int(&seed);
-		if (nmb >= 0)
+		int currentForNumbers = remaining < maxbufferSize ? remaining : maxbufferSize;
+		for (int i = 0; i < currentForNumbers && !sigFlag; i++)
 		{
-			pthread_mutex_lock(&(t->posList->mutex));
-			t->posList->array[t->posList->index] = nmb;
-			t->posList->index++;
-			pthread_mutex_unlock(&(t->posList->mutex));
+			nmb = get_rand_int(&seed);
+			if (nmb >= 0)
+				bufferPos[bufferPosIndex++] = nmb;
+			else
+				bufferNeg[bufferNegIndex++] = nmb;
 		}
-		else
-		{
-			pthread_mutex_lock(&(t->negList->mutex));
-			t->negList->array[t->negList->index] = nmb;
-			t->negList->index++;
-			pthread_mutex_unlock(&(t->negList->mutex));
-		}
+
+		pthread_mutex_lock(&(t->posList->mutex));
+		initialPosListIndex = t->posList->index;
+		t->posList->index += bufferPosIndex;
+		pthread_mutex_unlock(&(t->posList->mutex));
+		for (int i = 0; i < bufferPosIndex; i++)
+			t->posList->array[initialPosListIndex++] = bufferPos[i];
+
+		pthread_mutex_lock(&(t->negList->mutex));
+		initialNegListIndex = t->negList->index;
+		t->negList->index += bufferNegIndex;
+		pthread_mutex_unlock(&(t->negList->mutex));
+		for (int i = 0; i < bufferNegIndex; i++)
+			t->negList->array[initialNegListIndex++] = bufferNeg[i];
+
+		remaining = remaining - bufferPosIndex - bufferNegIndex;
+		bufferPosIndex = 0;
+		bufferNegIndex = 0;
 	}
 	return (NULL);
 }
