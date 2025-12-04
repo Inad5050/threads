@@ -5,7 +5,7 @@
 #define ARG_INVALID "Invalid argument, must be a number\n"
 #define ARG_ZERO "Invalid argument, must be bigger than zero\n"
 #define ARG_MAX_INT "Invalid argument, cannot be bigger than INT_MAX\n"
-
+#define CNOT_SIGNAL "Cannot set up signal controller\n"
 
 
 
