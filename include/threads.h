@@ -25,8 +25,13 @@ void	set_signals(void);
 void	sig_handler();
 
 // exit
-void error_exit(char *str, Threads *t);
-void free_everything(Threads *t);
+void	error_exit(char *str, Threads *t);
+void	free_everything(Threads *t);
+
+// utils
+int		get_rand_int(unsigned int *seed);
+void	print_numbers(Threads *t);
+int		compare_ints(const void *nmbA, const void *nmbB);
 
 typedef struct s_individualThreads indThread;
 typedef struct

@@ -20,8 +20,11 @@ int main(int argc, char **argv)
 		if (pthread_join(&t->ind[i].thread, NULL))
 			error_exit(CNOT_THREAD_JOIN, t);
 
+	if (!sigFlag)
+		print_numbers(t);
+
 	if (sigFlag)
-		fprintf(stderr, SIG_END);
+		printf(SIG_END);
 	free_everything(t);
 	return (0);
 }
@@ -51,10 +54,5 @@ void *routine(void *arg)
 			pthread_mutex_unlock(&(t->negList->mutex));
 		}
 	}
-	return (NULL);	
-}
-
-int get_rand_int(unsigned int *seed)
-{
-	int nmb = 
+	return (NULL);
 }
