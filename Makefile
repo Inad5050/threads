@@ -20,7 +20,7 @@ $(NAME): $(OBJ)
 	@echo "$(COLOR_GREEN)------------ MESSAGE: $@ COMPILED ------------$(COLOR_RESET)"
 
 test: fclean
-	@make all CCFLAGS="$(CCFLAGS) -g -DTEST" --no-print-directory
+	@make all CCFLAGS="$(CCFLAGS) -DTEST" --no-print-directory
 
 clean:
 	@rm -f $(OBJ)

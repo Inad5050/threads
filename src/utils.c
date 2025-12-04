@@ -2,7 +2,10 @@
 
 int get_rand_int(unsigned int *seed)
 {
-	return (rand_r(seed) - RAND_MAX / 2);
+	int nmb = rand_r(seed);
+	if (rand_r(seed) & 1)
+		return (-nmb);
+	return (nmb);
 }
 
 void print_numbers(Threads *t)
