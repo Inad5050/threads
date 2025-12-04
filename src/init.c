@@ -34,7 +34,8 @@ Threads *init_struct(int threadNmb, int nmbsPerThread)
 	init_nmb_struct(&(t->posList), t);
 	init_nmb_struct(&(t->negList), t);
 	init_individual_threads(t);
-
+	t->randSeed = time(NULL);
+	return (t);
 }
 
 void init_individual_threads(Threads *t)

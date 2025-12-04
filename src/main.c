@@ -28,5 +28,33 @@ int main(int argc, char **argv)
 
 void *routine(void *arg)
 {
+	indThread *ind		= (indThread *)arg;
+	Threads *t			= ind->main;
+	unsigned int seed	= t->randSeed + ind->index;
+	int	nmb;
 
+	for (int i = 0; i < t->nmbsPerThread && !sigFlag; i++)
+	{
+		nmb = get_rand_int(&seed);
+		if (nmb >= 0)
+		{
+			pthread_mutex_lock(&(t->posList->mutex));
+			t->posList->array[t->posList->index] = nmb;
+			t->posList->index;
+			pthread_mutex_unlock(&(t->posList->mutex));
+		}
+		else
+		{
+			pthread_mutex_lock(&(t->negList->mutex));
+			t->negList->array[t->negList->index] = nmb;
+			t->negList->index;
+			pthread_mutex_unlock(&(t->negList->mutex));
+		}
+	}
+	return (NULL);	
+}
+
+int get_rand_int(unsigned int *seed)
+{
+	int nmb = 
 }

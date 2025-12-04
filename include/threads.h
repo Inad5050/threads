@@ -44,6 +44,7 @@ typedef struct
 	nmbList		*posList;
 	nmbList		*negList;
 	indThread	*ind;
+	int			randSeed;
 } Threads;
 
 struct s_individualThreads
