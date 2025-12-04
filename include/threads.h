@@ -11,6 +11,9 @@
 
 extern volatile sig_atomic_t sigFlag;
 
+// main
+void *routine(void *arg);
+
 // init
 int		check_argument(char *argStr);
 Threads	*init_struct(int threadNmb, int nmbsPerThread);

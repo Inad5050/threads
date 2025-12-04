@@ -8,7 +8,8 @@
 #define CNOT_SIGNAL "Cannot set up signal controller\n"
 #define CNOT_ALLOC "Cannot allocate memory\n"
 #define CNOT_MUTEX "Cannot init mutex\n"
-
-
+#define CNOT_THREAD_CREATE "Failed to create thread\n"
+#define CNOT_THREAD_JOIN "Failed to join thread\n"
+#define SIG_END "Program terminated by user signal\n"
 
 #endif
